@@ -19,6 +19,7 @@ if (!roomId) {
 // if (!displayName) {
 //   window.location = "lobby.html";
 // }
+// console.log(displayName);
 
 let localTracks = [];
 let remoteUsers = {};
