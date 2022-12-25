@@ -1,10 +1,57 @@
-const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+let uid = sessionStorage.getItem("uid");
+if (!uid) {
+  uid = String(Math.floor(Math.random() * 10000));
+  sessionStorage.setItem("uid", uid);
+}
+
+let client;
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+let roomId = urlParams.get("room");
+
+if (!roomId) {
+  roomId = "main";
+}
+
+// let displayName = sessionStorage.getItem("display_name");
+// if (!displayName) {
+//   window.location = "lobby.html";
+// }
 
 let localTracks = [];
 let remoteUsers = {};
 
 let localScreenTracks;
 let sharingScreen = false;
+
+let joinRoomInit = async () => {
+  client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+  await client.join(APP_ID, CHANNEL, TOKEN, uid);
+
+  client.on("user-published", handleUserPublished);
+  client.on("user-left", handleUserLeft);
+  joinStream();
+};
+
+let joinStream = async () => {
+  localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
+
+  let player = `<div class="video__container" id="user-container-${uid}">
+                    <div class="video-player" id="user-${uid}"></div>
+                </div>`;
+  document
+    .getElementById("streams__container")
+    .insertAdjacentHTML("beforeend", player);
+
+  document
+    .getElementById(`user-container-${uid}`)
+    .addEventListener("click", expandVideoFrame);
+
+  localTracks[1].play(`user-${uid}`);
+  await client.publish([localTracks[0], localTracks[1]]);
+};
 
 let switchToCamera = async () => {
   let player = `<div class="video__container" id="user-container-${uid}">
@@ -21,7 +68,7 @@ let switchToCamera = async () => {
   await client.publish([localTracks[1]]);
 };
 
-client.on("user-published", async (user, mediaType) => {
+let handleUserPublished = async (user, mediaType) => {
   remoteUsers[user.uid] = user;
   await client.subscribe(user, mediaType);
 
@@ -52,39 +99,22 @@ client.on("user-published", async (user, mediaType) => {
   if (mediaType === "audio") {
     user.audioTrack.play();
   }
-});
+};
 
-client.on("user-left", async (user) => {
+let handleUserLeft = async (user) => {
   delete remoteUsers[user.uid];
-  document.getElementById("user-container-" + user.uid).remove();
-});
+  document.getElementById(`user-container-${user.uid}`).remove();
 
-startStreaming();
+  if (userIdInDisplayFrame === `user-container-${user.uid}`) {
+    displayFrame.style.display = null;
 
-async function startStreaming() {
-  try {
-    let UID = await client.join(APP_ID, CHANNEL, TOKEN);
-    localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
-    let player = `<div class="video__container" id="user-container-${UID}">
-                    <div class="video-player" id="user-${UID}"></div>
-                  </div>`;
-
-    document
-      .getElementById("streams__container")
-      .insertAdjacentHTML("beforeend", player);
-
-    document
-      .getElementById(`user-container-${UID}`)
-      .addEventListener("click", expandVideoFrame);
-    localTracks[1].play("user-" + UID);
-    await client.publish([localTracks[0], localTracks[1]]);
-    // processor = extension.createProcessor();
-  } catch (error) {
-    alert(
-      "You should allow the camera and microphone, also try changing you microphone"
-    );
+    let videoFrames = document.getElementsByClassName(`video__container`);
+    for (let i = 0; videoFrames.length > i; i++) {
+      videoFrames[i].style.width = "300px";
+      videoFrames[i].style.height = "300px";
+    }
   }
-}
+};
 
 let toggleMic = async (e) => {
   let button = e.currentTarget;
@@ -161,3 +191,4 @@ let toggleScreen = async (e) => {
 document.getElementById("mic-btn").addEventListener("click", toggleMic);
 document.getElementById("camera-btn").addEventListener("click", toggleCamera);
 document.getElementById("screen-btn").addEventListener("click", toggleScreen);
+joinRoomInit();
