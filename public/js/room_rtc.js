@@ -9,17 +9,12 @@ let client;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-let roomId = urlParams.get("room");
+let displayName = USERNAME;
+console.log("USERNAME: ", displayName);
 
-if (!roomId) {
-  roomId = "main";
+if (!displayName) {
+  window.location = "lobby.ejs";
 }
-
-// let displayName = sessionStorage.getItem("display_name");
-// if (!displayName) {
-//   window.location = "lobby.html";
-// }
-// console.log(displayName);
 
 let localTracks = [];
 let remoteUsers = {};
