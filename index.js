@@ -33,13 +33,11 @@ app.get("/:roomId", function (req, res) {
     APP_ID: APP_ID,
     CHANNEL: req.params.roomId,
     TOKEN: TOKEN,
-    USERNAME: USERNAME,
   });
 });
 
 app.post("/", (req, res) => {
   CHANNEL = req.body.channelName;
-  USERNAME = req.body.userName;
   let uid = 0;
   let role = RtcRole.PUBLISHER;
   let expireTime = 7200;

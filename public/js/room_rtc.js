@@ -1,19 +1,12 @@
-let uid = sessionStorage.getItem("uid");
-if (!uid) {
-  uid = String(Math.floor(Math.random() * 10000));
-  sessionStorage.setItem("uid", uid);
-}
-
 let client;
+let uid = 0;
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
+let roomId = CHANNEL;
 
-let displayName = USERNAME;
-console.log("USERNAME: ", displayName);
-
-if (!displayName) {
-  window.location = "lobby.ejs";
+if (!roomId) {
+  roomId = "main";
 }
 
 let localTracks = [];
