@@ -54,7 +54,7 @@ app.post("/", (req, res) => {
   );
   TOKEN = token;
 
-  res.redirect("/" + req.body.channelName).send(userName);
+  res.redirect("/" + req.body.channelName);
 });
 
 app.listen(PORT, () => {
