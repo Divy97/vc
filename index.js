@@ -6,11 +6,10 @@ const { RtcTokenBuilder, RtcRole } = require("agora-access-token");
 const PORT = 8000;
 const app = express();
 
-const APP_ID = "24e7d5130a074991ade890963d1e5bbd";
-const APP_CERTIFICATE = "cede5403fe9148c9986f1f9b7b92e8c3";
+const APP_ID = "bfca05642cd54e18bac76fe16727eb02";
+const APP_CERTIFICATE = "996c157f17ea44bdb5a792b93566c767";
 let TOKEN = null;
 let CHANNEL = null;
-let NAME = null;
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,11 +32,13 @@ app.get("/:roomId", function (req, res) {
     APP_ID: APP_ID,
     CHANNEL: req.params.roomId,
     TOKEN: TOKEN,
+    USERNAME: USERNAME,
   });
 });
 
 app.post("/", (req, res) => {
   CHANNEL = req.body.channelName;
+  USERNAME = req.body.userName;
   let uid = 0;
   let role = RtcRole.PUBLISHER;
   let expireTime = 7200;
@@ -53,7 +54,7 @@ app.post("/", (req, res) => {
   );
   TOKEN = token;
 
-  res.redirect("/" + req.body.channelName);
+  res.redirect("/" + req.body.channelName).send(userName);
 });
 
 app.listen(PORT, () => {

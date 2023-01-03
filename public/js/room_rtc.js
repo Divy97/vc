@@ -1,10 +1,23 @@
+let token = null;
 let client;
-let uid = 0;
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
+let uid = sessionStorage.getItem("uid");
+if (!uid) {
+  uid = String(Math.floor(Math.random() * 10000));
+  sessionStorage.setItem("uid", uid);
+}
+
+let displayName = USERNAME;
+if (!displayName) {
+  window.location = "lobby.ejs";
+}
+
+console.log(displayName);
+
+let rtmClient;
+let channel;
+
 let roomId = CHANNEL;
-
 if (!roomId) {
   roomId = "main";
 }
@@ -16,8 +29,13 @@ let localScreenTracks;
 let sharingScreen = false;
 
 let joinRoomInit = async () => {
+  // rtmClient = await AgoraRTM.createInstance(APP_ID);
+  // await rtmClient.login({ uid, token });
+
+  // console.log(uid);
+
   client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-  await client.join(APP_ID, CHANNEL, TOKEN, uid);
+  await client.join(APP_ID, roomId, token, uid);
 
   client.on("user-published", handleUserPublished);
   client.on("user-left", handleUserLeft);

@@ -6,19 +6,20 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Room</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/lobby.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+
 </head>
 
 <body>
 
     <header id="nav">
         <div class="nav--list">
-            <a href="lobby.ejs" />
-            <h3 id="logo">
-                <img src="assets/logo.png" alt="Site Logo">
-                <span>Mumble</span>
-            </h3>
+            <a href="lobby.ejs">
+                <h3 id="logo">
+                    <img src="assets/logo.png" alt="Site Logo">
+                    <span>Mumble</span>
+                </h3>
             </a>
         </div>
 
@@ -70,6 +71,22 @@
             </form>
         </div>
     </main>
+    <!-- <script>
+        let form = document.getElementById("lobby__form");
+
+        let displayName = sessionStorage.getItem("display_name");
+        if (displayName) {
+            form.userName.value = displayName;
+        }
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            sessionStorage.setItem("display_name", e.target.userName.value);
+        });
+    </script> -->
+    <!-- <script type="text/javascript" src="js/lobby.js"></script> -->
+
 </body>
 
 </html>
