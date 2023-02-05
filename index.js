@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const { RtcTokenBuilder, RtcRole } = require("agora-access-token");
-// const { userRoutes } = require("./Routes/userRoutes");
+const userRoutes = require("./Routes/userRoutes");
 const dotenv = require("dotenv");
 const app = express();
 
@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 9000;
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + "/public")));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.render("lobby.ejs");
@@ -29,11 +30,11 @@ app.get("/lobby.ejs", (req, res) => {
   res.render("lobby.ejs");
 });
 
-app.get("/room.ejs", (req, res) => {
-  res.render("room.ejs");
-});
+// app.get("/room.ejs", (req, res) => {
+//   res.render("room.ejs");
+// });
 
-// app.use("/room", userRoutes);
+app.use("/room", userRoutes);
 
 app.get("/:roomId", function (req, res) {
   res.render("room.ejs", {
