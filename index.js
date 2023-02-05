@@ -23,11 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + "/public")));
 app.use(express.json());
 
-//error
-
-app.use(notFound);
-app.use(errorHandler);
-
 app.get("/", (req, res) => {
   res.render("lobby.ejs");
 });
