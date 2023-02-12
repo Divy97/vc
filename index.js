@@ -24,12 +24,20 @@ app.use(express.static(path.join(__dirname + "/public")));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.render("lobby.ejs");
+  res.render("home.ejs");
 });
 
-app.get("/lobby.ejs", (req, res) => {
-  res.render("lobby.ejs");
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
 });
+
+app.get("/register", (req, res) => {
+  res.render("register.ejs");
+});
+
+// app.get("/", (req, res) => {
+//   res.render("lobby.ejs");
+// });
 
 // app.get("/room.ejs", (req, res) => {
 //   res.render("room.ejs");

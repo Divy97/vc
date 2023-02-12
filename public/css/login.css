@@ -1,0 +1,36 @@
+.login-container {
+  height: 99vh;
+  width: 99vw;
+  background-color: #f3f3f3;
+}
+
+.login-title {
+  margin-left: 5rem;
+  padding-top: 4rem;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5rem;
+}
+
+.login-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.submit-button {
+  margin-top: 2rem;
+  padding: 10px 20px;
+  width: 100px;
+}
+
+.login-span {
+  position: absolute;
+  top: 68%;
+  left: 5.3%;
+}
