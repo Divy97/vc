@@ -1,5 +1,73 @@
-.loginContainer {
+.register-container {
+  height: 99vh;
+  width: 99vw;
+  background-color: #f3f3f3;
+}
+
+.register-title {
+  margin-left: 5rem;
+  padding-top: 4rem;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.register-form {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  justify-content: center;
+  margin: 5rem;
 }
+
+.register-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.submit-button {
+  margin-top: 2rem;
+  padding: 10px 20px;
+  width: 100px;
+}
+
+.register-span {
+  position: absolute;
+  top: 68%;
+  left: 5.3%;
+}
+/* 
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f9fb;
+  transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loading-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading::after {
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 15px solid #dddddd;
+  border-top-color: #7449f5;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+} */
