@@ -20,22 +20,22 @@
 <body>
     <div class="login-container">
         <h1 class="login-title">LOGIN</h1>
-        <form class="login-form" id="loginForm" onSubmit="handleSubmit()">
+        <form class="login-form" id="loginForm" action="/">
             <div class=" mb-3">
                 <label class="form-label login-label">Email address</label>
-                <input name="email" type="email" class="form-control" id="email">
+                <input name="email" type="email" class="form-control" id="email" />
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label login-label">Password</label>
-                <input name="password" type="password" class="form-control" id="password">
+                <input name="password" type="password" class="form-control" id="password" />
             </div>
             <input type="submit" class="btn btn-primary submit-input" />
+            <div id="loading" class="loading"></div>
             <span class="login-span">New User ? <a href="/register">Register here</a></span>
         </form>
-        <p id="demo"></p>
+        <div class="demo"></div>
     </div>
     <script type="module" src="js/login.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
